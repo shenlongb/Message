@@ -23,7 +23,7 @@
 		<volist name="_list" id="vo">
 		<tr>
             <td></td>
-			<td><a href="{:U('index',array('user_id'=>$vo[user_id]))}">{$vo.user_id}</a></td>
+			<td>{$vo.message_id}</td>
 			<td title="{$vo.title}">{$vo.title|msubstr=0,5,'utf-8'}</td>
 			<td>{$vo.name}</td>
 			<td>{$vo.tel}</td>
@@ -69,6 +69,6 @@
 		}
 	});
     //导航高亮
-    highlight_subnav('{:U('User/index')}');
+    highlight_subnav('{:U('Message/index')}');
 	</script>
 </block>

@@ -71,7 +71,7 @@ class AdminController extends Controller {
                 ),
                 '1' => array(
                     'title' => '企业信息',
-                    'url' => 'User/info',
+                    'url' => 'UserInfo/info',
                 ),
                 '2' => array(
                     'title' => '修改密码',
