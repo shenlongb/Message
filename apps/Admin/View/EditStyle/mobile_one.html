@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><link href="__STATIC__/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="__STATIC__/jquery-1.4.2.min.js" type="text/javascript"></script>
+    <title>
+
+    </title>
+    <style type="text/css">
+        .panel
+        {
+            margin-bottom: 0px !important;
+        }
+        .panel-body
+        {
+            padding-top: 0px !important;
+            padding-bottom: 5px !important;
+        }
+        .input-group
+        {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var CompanyID = getUrlParam("CompanyID");
+            $("#btnSave").bind("click", function () {
+                if (!$("#Mobile").val()) {
+                    alert("手机号为必填项！");
+                    return;
+                }
+                if (!$("#Mobile").val().match(/^1\d{10}$/)) {
+                    alert("手机号码格式不正确,请重新输入！");
+                    return;
+                }
+                $("#btnSave").css("display", "none");
+                $.post("postAdd.html", {
+                            name: $('#Name').val(),
+                            tel: $('#Mobile').val(),
+                            address: $('#Address').val(),
+                            content: $("#LeaveContent").val(),
+                            CompanyID: CompanyID
+                        },
+                        function (rtn) {
+                            if (rtn.status == 0) {
+                                $("#btnSave").css("display", "");
+                            }
+                            alert(rtn.info);
+                        });
+            })
+            $("#btnReset").bind("click", function () {
+                window.location.href = "LeaveWord_Mobile.aspx?CompanyID=" + CompanyID;
+            })
+        });
+        //获取url中的参数,
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]); return null; //返回参数值
+        }
+        function selContent(val1) {
+            var checkbox;
+            if (val1.indexOf("sp") >= 0) {
+                checkbox = $("#" + val1).prev();
+                checkbox.attr("checked", !checkbox.attr("checked"));
+            }
+            else {
+                checkbox = $("#" + val1);
+            }
+            var ori = $("#LeaveContent").val();
+            if (checkbox.attr("checked") == true) {
+                $("#LeaveContent").val(ori + checkbox.val())
+            }
+            else {
+                var content = checkbox.val();
+                var result = ori.replace(content, "");
+                $("#LeaveContent").val(result);
+            }
+        }
+    </script>
+</head>
+<body>
+<form name="form1" method="post" action="LeaveWord_Mobile.aspx?CompanyID=41e6d2ea-d0ba-4722-b8f6-61049d7e3d5e" id="form1">
+    <div>
+        <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJNTU3MjY3MDI3ZGTM3IYcaQB+iG4DXqPdRuMKRoClHw==" />
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <span style="font-size: 18px; font-weight: bolder"><span class="glyphicon glyphicon-pencil"
+                                                                     style="padding-right: 10px"></span>立即留言</span><span class="small">__选择成就未来&nbsp;&nbsp;财富由此开始</span>
+        </div>
+        <div class="panel-body">
+            <div class="input-group">
+                <span class="input-group-addon">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</span>
+                <input type="text" class="form-control" placeholder="姓名" id="Name" name="Name" /></div>
+            <div class="input-group">
+                <span class="input-group-addon">联系电话</span>
+                <input type="text" class="form-control" placeholder="联系电话(必填项)" id="Mobile" name="Mobile" /></div>
+            <div class="input-group">
+                <span class="input-group-addon">快速留言</span>
+                <input type="checkbox" name="cbg" style="margin-left: 3px" id="cb1" onclick="selContent(this.id)"
+                       value="加盟后提供哪些服务?" />
+                <span id="sp1" onclick="selContent(this.id)" class="small">加盟后提供哪些服务?</span></br>
+                <input type="checkbox" name="cbg" style="margin-left: 3px" id="cb2" value="有兴趣请邮寄资料!"
+                       onclick="selContent(this.id)" /><span id="sp2" class="small" onclick="selContent(this.id)">有兴趣请邮寄资料!</span></br>
+                <input type="checkbox" name="cbg" style="margin-left: 3px" id="cb3" value="需要交加盟费保证金吗?"
+                       onclick="selContent(this.id)" />
+                <span id="sp3" class="small" onclick="selContent(this.id)">需要交加盟费保证金吗?</span></br>
+                <input type="checkbox" name="cbg" style="margin-left: 3px" id="cb4" value="开业前总投资多少?"
+                       onclick="selContent(this.id)" />
+                <span id="sp4" class="small" onclick="selContent(this.id)">开业前总投资多少?</span>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">邮寄地址</span>
+                <textarea class="form-control" id="Address" name="Address" style="height: 43px"></textarea>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">留&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;言</span>
+                <textarea class="form-control" style="height: 65px" id="LeaveContent" name="LeaveContent"></textarea>
+            </div>
+            <div class="btn-group-justified">
+                <a type="button" class="btn btn-lg btn-primary" style="font-weight: bolder;" id="btnSave">
+                    <span class="glyphicon glyphicon-floppy-open" style="padding-right: 5px"></span>
+                    提&nbsp;&nbsp;&nbsp;&nbsp;交</a> <a type="button" id="btnReset" class="btn  btn-lg btn-primary"
+                                                      style="font-weight: bolder"><span class="glyphicon glyphicon-share" style="padding-right: 5px">
+                        </span>重&nbsp;&nbsp;&nbsp;&nbsp;置</a>
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>

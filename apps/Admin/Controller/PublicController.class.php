@@ -69,11 +69,17 @@ class PublicController extends \Think\Controller {
         if(IS_POST) {
             $data = array();
             $data['user_id'] =  I('post.CompanyID', '');
-            $data['title']   =  I('post.title', '');
+            $data['title']   =  I('post.title', '我要咨询');
             $data['name']    =  I('post.name', '');
             $data['tel']     =  I('post.tel', '');
+            $data['email']   =  I('post.email', '');
             $data['address'] =  I('post.address', '');
             $data['content'] =  I('post.content', '');
+
+            $VisitBack = I('post.VisitBack', '');
+            if (!empty($VisitBack)) {
+                $data['content'] .= "<br /> 要求回复时间：".$VisitBack;
+            }
 
             $Message = D("Message"); // 实例化User对象
             if (!$Message->create($data)){

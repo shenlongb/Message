@@ -16,21 +16,22 @@ USE `lg01.com`;
 
 
 -- 导出  表 lg01.com.one_message 结构
-CREATE TABLE IF NOT EXISTS `one_message` (
-  `message_id` int(11) NOT NULL AUTO_INCREMENT,
-  `message_toid` int(11) NOT NULL DEFAULT '0' COMMENT '标识（复制时候会记录原ID）',
-  `user_id` int(11) NOT NULL COMMENT '所属用户ID',
-  `title` varchar(50) NOT NULL COMMENT '留言主题',
-  `name` varchar(10) NOT NULL COMMENT '联系人',
-  `tel` char(15) NOT NULL COMMENT '联系电话',
-  `address` varchar(255) DEFAULT NULL COMMENT '联系地址',
-  `content` text NOT NULL COMMENT '留言内容',
-  `add_ip` bigint(20) NOT NULL DEFAULT '0' COMMENT '添加IP',
-  `add_time` int(10) NOT NULL DEFAULT '0' COMMENT '添加时间',
-  `update_time` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
-  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
+CREATE TABLE `one_message` (
+  `message_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `message_toid` INT(11) NOT NULL DEFAULT '0' COMMENT '标识（复制时候会记录原ID）',
+  `user_id` INT(11) NOT NULL COMMENT '所属用户ID',
+  `title` VARCHAR(50) NOT NULL COMMENT '留言主题',
+  `name` VARCHAR(10) NOT NULL COMMENT '联系人',
+  `tel` CHAR(15) NOT NULL COMMENT '联系电话',
+  `email` VARCHAR(80) NOT NULL COMMENT '联系邮箱',
+  `address` VARCHAR(255) NULL DEFAULT NULL COMMENT '联系地址',
+  `content` TEXT NOT NULL COMMENT '留言内容',
+  `add_ip` BIGINT(20) NOT NULL DEFAULT '0' COMMENT '添加IP',
+  `add_time` INT(10) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  `update_time` INT(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `status` TINYINT(4) NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`message_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='留言记录表';
+) COMMENT='留言记录表' COLLATE='utf8_general_ci' ENGINE=MyISAM;
 
 -- 正在导出表  lg01.com.one_message 的数据：~2 rows (大约)
 DELETE FROM `one_message`;
