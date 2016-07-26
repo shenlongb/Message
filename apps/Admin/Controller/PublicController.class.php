@@ -68,19 +68,32 @@ class PublicController extends \Think\Controller {
     {
         if(IS_POST) {
             $data = array();
-            $data['user_id'] =  I('post.CompanyID', '');
-            $data['title']   =  I('post.title', '我要咨询');
-            $data['name']    =  I('post.name', '');
-            $data['tel']     =  I('post.tel', '');
-            $data['email']   =  I('post.email', '');
-            $data['address'] =  I('post.address', '');
-            $data['content'] =  I('post.content', '');
-
-            $VisitBack = I('post.VisitBack', '');
-            if (!empty($VisitBack)) {
-                $data['content'] .= "<br /> 要求回复时间：".$VisitBack;
+            $actions = I('get.actions');
+            $data['user_id'] = I('post.CompanyID', '');
+            $data['title']   = I('post.title', '');
+            $data['name']    = I('post.name', '');
+            $data['tel']     = I('post.tel', '');
+            if (empty($data['title'])) {
+                $data['title'] = $data['name'].' 的留言';
             }
 
+            if ($actions == 'TWO') { // 模板 2
+                $abArr['ab1'] = I('post.ab1', ''); // 选择项目
+                $abArr['ab2'] = I('post.ab2', ''); // 对UCC有没有过了解
+                $abArr['ab3'] = I('post.ab3', ''); // 您的了解渠道
+                $abArr['abr'] = I('post.adr', ''); // 开店意向地址
+                $data['content'] = $this->getPostAddTwo($abArr);
+            } else {
+                $data['email'] = I('post.email', '');
+                $data['address'] = I('post.address', '');
+                $data['content'] = I('post.content', '');
+
+                $VisitBack = I('post.VisitBack', '');
+                if (!empty($VisitBack)) {
+                    $data['content'] .= "<br /> 要求回复时间：" . $VisitBack;
+                }
+            }
+            
             $Message = D("Message"); // 实例化User对象
             if (!$Message->create($data)){
                 $this->error($Message->getError());
@@ -94,6 +107,24 @@ class PublicController extends \Think\Controller {
             }
             $this->error('留言失败！');
         }
+    }
+
+    public function getPostAddTwo($abArr)
+    {
+        if (empty($abArr['ab1'])) {
+            $this->error('请选择项目！');
+        }
+        if (empty($abArr['ab2'])) {
+            $this->error('请选择对UCC有没有过了解！');
+        }
+        if (empty($abArr['ab3'])) {
+            $this->error('请选择了解渠道！');
+        }
+        if (empty($abArr['abr'])) {
+            $this->error('请输入开店意向地址！');
+        }
+
+        return '选择项目:'.$abArr['ab1'].'<br />'.$abArr['ab2'].'<br />'.$abArr['ab3'].'<br />开店意向地址:'.$abArr['abr'];
     }
 
     public function password($uid=0)
