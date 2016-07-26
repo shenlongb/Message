@@ -23,7 +23,7 @@
 		<th class="row-selected row-selected"></th>
 		<th class="">UID</th>
 		<th class="">昵称</th>
-		<th class="">积分</th>
+		<th class="">加密用户ID</th>
 		<th class="">登录次数</th>
 		<th class="">最后登录时间</th>
 		<th class="">最后登录IP</th>
@@ -38,7 +38,7 @@
             <td></td>
 			<td>{$vo.id} </td>
 			<td>{$vo.nickname}</td>
-			<td>{$vo.score}</td>
+			<td>{$vo.id|think_encrypt}</td>
 			<td>{$vo.login}</td>
 			<td><span>{$vo.last_login_time|time_format}</span></td>
 			<td><span>{:long2ip($vo['last_login_ip'])}</span></td>
