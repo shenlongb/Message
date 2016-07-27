@@ -80,12 +80,12 @@ class PublicController extends \Think\Controller {
                 $data['title'] = $data['name'].' 的留言';
             }
 
-            if ($actions == 'TWO') { // 模板 2
+            if ($actions == 'TWO' || $actions == 'THREE') { // 模板 2
                 $abArr['ab1'] = I('post.ab1', ''); // 选择项目
                 $abArr['ab2'] = I('post.ab2', ''); // 对UCC有没有过了解
                 $abArr['ab3'] = I('post.ab3', ''); // 您的了解渠道
                 $abArr['abr'] = I('post.adr', ''); // 开店意向地址
-                $data['content'] = $this->getPostAddTwo($abArr);
+                $data['content'] = $this->getPostAddTwo($abArr, $actions);
             } else {
                 $data['email'] = I('post.email', '');
                 $data['address'] = I('post.address', '');
@@ -112,13 +112,17 @@ class PublicController extends \Think\Controller {
         }
     }
 
-    public function getPostAddTwo($abArr)
+    public function getPostAddTwo($abArr, $actions)
     {
+        $ARR = array(
+            'TWO' => 'UCC',
+            'THREE' => '一扫光零食加盟',
+        );
         if (empty($abArr['ab1'])) {
             $this->error('请选择项目！');
         }
         if (empty($abArr['ab2'])) {
-            $this->error('请选择对UCC有没有过了解！');
+            $this->error('请选择对'.$ARR[$actions].'有没有过了解！');
         }
         if (empty($abArr['ab3'])) {
             $this->error('请选择了解渠道！');

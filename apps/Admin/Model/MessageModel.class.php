@@ -8,6 +8,7 @@ class MessageModel extends Model {
     protected $_validate = array(
         array('user_id','checkUserId','参数错误!', self::MUST_VALIDATE, 'callback'), //默认情况下用正则进行验证
         array('tel', '/^[1][0-9]{10}$/', '手机格式不正确!', self::MUST_VALIDATE), // 手机格式不正确
+        array('tel', 'checkTel', '超出留言限制条数', self::MUST_VALIDATE), // 条数验证
         array('email', '/^([0-9A-Za-z\\-_\\.]+)@([0-9a-z]+\\.[a-z]{2,3}(\\.[a-z]{2})?)$/', '邮箱格式不正确!', self::VALUE_VALIDATE), // 邮箱格式不正确
         array('title', '3,50', '标题在3-50字符之间!', self::VALUE_VALIDATE, 'length'), //
         array('name','2,50','请输入正确姓名！',self::MUST_VALIDATE,'length'),
@@ -31,6 +32,21 @@ class MessageModel extends Model {
      */
     public function checkUserId($user_id){
         if (0 < think_decrypt($user_id)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 条数验证
+     * @return boolean          ture，false
+     */
+    public function checkTel($tel){
+        $where = array();
+        $where['tel'] = $tel;
+        $where['add_time'] = array('egt',strtotime(date('Y-m-d')));
+        $count = M('Message')->where($where)->count();
+        if (2 > $count) {
             return true;
         }
         return false;
