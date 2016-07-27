@@ -17,6 +17,22 @@ class MessageController extends AdminController {
             }
         }
 
+        // 标题搜索
+        $title = I('get.title');
+        if (!empty($title)) {
+            $map['title'] = array('like', $title);
+        }
+
+        // 时间区间条件处理
+        $time_start = I('get.time-start');
+        $time_end = I('get.time-end');
+        if (!empty($time_start)) {
+            $map['add_time'] = array('egt', strtotime($time_start));
+        }
+        if (!empty($time_end)) {
+            $map['add_time'] = array('elt', strtotime($time_end));
+        }
+
         if (!empty($_REQUEST['CSV'])) {
             $this->indexCsv($map);
             exit();
