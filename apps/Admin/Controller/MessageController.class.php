@@ -20,7 +20,7 @@ class MessageController extends AdminController {
         // 标题搜索
         $title = I('get.title');
         if (!empty($title)) {
-            $map['title'] = array('like', $title);
+            $map['title'] = array('like', '%'.$title.'%');
         }
 
         // 时间区间条件处理
