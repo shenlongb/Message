@@ -23,7 +23,7 @@
     </style>
     <script type="text/javascript">
         $(document).ready(function () {
-            var CompanyID = getUrlParam("CompanyID");
+//            var CompanyID = getUrlParam("CompanyID");
             $("#btnSave").bind("click", function () {
                 if (!$("#Mobile").val()) {
                     alert("手机号为必填项！");
@@ -39,7 +39,7 @@
                             tel: $('#Mobile').val(),
                             address: $('#Address').val(),
                             content: $("#LeaveContent").val(),
-                            CompanyID: CompanyID
+                            CompanyID: $("#CompanyID").val()
                         },
                         function (rtn) {
                             if (rtn.status == 0) {
@@ -79,9 +79,10 @@
     </script>
 </head>
 <body>
-<form name="form1" method="post" action="LeaveWord_Mobile.aspx?CompanyID=41e6d2ea-d0ba-4722-b8f6-61049d7e3d5e" id="form1">
+<form name="form1" method="post" action="" id="form1">
     <div>
         <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJNTU3MjY3MDI3ZGTM3IYcaQB+iG4DXqPdRuMKRoClHw==" />
+        <input type="hidden" name="CompanyID" id="CompanyID" value="{$CompanyID}" />
     </div>
 
     <div class="panel panel-primary">
