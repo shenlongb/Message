@@ -90,7 +90,7 @@ class PublicController extends \Think\Controller {
 
                 $VisitBack = I('post.VisitBack', '');
                 if (!empty($VisitBack)) {
-                    $data['content'] .= "<br /> 要求回复时间：" . $VisitBack;
+                    $data['content'] .= "<br />要求回复时间：" . $VisitBack;
                 }
             }
             

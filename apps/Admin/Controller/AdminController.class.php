@@ -107,7 +107,7 @@ class AdminController extends Controller {
      * @return array|false
      * 返回数据集
      */
-    protected function lists ($model,$where=array(),$order='',$field=true)
+    protected function lists ($model,$where=array(),$order='',$field=true, $pages=true)
     {
         $options = array();
         $REQUEST = (array)I('request.');
@@ -144,16 +144,18 @@ class AdminController extends Controller {
         } else {
             $listRows = C('LIST_ROWS') > 0 ? C('LIST_ROWS') : 10;
         }
-        $page = new \Think\Page($total, $listRows, $REQUEST);
-        if ($total > $listRows) {
-            $page->setConfig('theme', '%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%');
-        }
-        $p = $page->show();
-        $this->assign('_page', $p ? $p : '');
-        $this->assign('_total', $total);
-        $options['limit'] = $page->firstRow . ',' . $page->listRows;
+        if ($pages) {
+            $page = new \Think\Page($total, $listRows, $REQUEST);
+            if ($total > $listRows) {
+                $page->setConfig('theme', '%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%');
+            }
+            $p = $page->show();
+            $this->assign('_page', $p ? $p : '');
+            $this->assign('_total', $total);
+            $options['limit'] = $page->firstRow . ',' . $page->listRows;
 
-        $model->setProperty('options', $options);
+            $model->setProperty('options', $options);
+        }
 
         return $model->field($field)->select();
     }
