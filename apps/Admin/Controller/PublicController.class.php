@@ -73,6 +73,7 @@ class PublicController extends \Think\Controller {
             $data['title']   = I('post.title', '');
             $data['name']    = I('post.name', '');
             $data['tel']     = I('post.tel', '');
+            $data['http_referer'] = I('server.HTTP_REFERER');
             if (empty($data['title'])) {
                 $data['title'] = $data['name'].' 的留言';
             }
