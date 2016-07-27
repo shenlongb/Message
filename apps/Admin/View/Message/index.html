@@ -20,10 +20,6 @@
                         <input type="text" id="time-start" name="time-start" class="text input-2x" value="" placeholder="起始时间" /> -
                         <input type="text" id="time-end" name="time-end" class="text input-2x" value="" placeholder="结束时间" />
                     </div>
-                    <div class="row">
-                        <label>创建者：</label>
-                        <input type="text" name="nickname" class="text input-2x" value="" placeholder="请输入用户名">
-                    </div>
                 </div>
             </div>
         </div>
@@ -42,6 +38,7 @@
         <th class="">联系邮箱</th>
         <th class="">联系地址</th>
         <th class="">留言内容</th>
+        <th class="">来源</th>
         <th class="">IP</th>
         <th class="">添加时间</th>
         </tr>
@@ -58,6 +55,7 @@
             <td>{$vo.email}</td>
             <td title="{$vo.address}"><span>{$vo.address|msubstr=0,10,'utf-8'}</span></td>
             <td title="{$vo.content}"><span>{$vo.content|msubstr=0,15,'utf-8'}</span></td>
+            <td title="{$vo.http_referer}"><span>{$vo.http_referer|msubstr=0,15,'utf-8'}</span></td>
             <td><span>{:long2ip($vo['add_ip'])}</span></td>
             <td><span>{$vo.add_time|time_format}</span></td>
         </tr>
