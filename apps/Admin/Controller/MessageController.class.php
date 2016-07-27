@@ -21,7 +21,7 @@ class MessageController extends AdminController {
             $this->indexCsv($map);
             exit();
         } else {
-            $list = $this->lists('Message', $map);
+            $list = $this->lists('Message', $map, 'message_id desc');
             $this->assign('_list', $list);
         }
 
@@ -32,13 +32,13 @@ class MessageController extends AdminController {
     {
         $csv=new \Think\Csv();
         $field = 'message_id,title,name,tel,email,address,content,add_ip,add_time';
-        $list = $this->lists('Message', $map, '',$field, false);
+        $list = $this->lists('Message', $map, 'message_id desc',$field, false);
         $csv_title=array('ID','留言主题','联系人','联系电话','联系邮箱','联系地址','留言内容','IP','添加时间');
         if (!empty($list)) {
             foreach ($list as $k => &$v) {
                 $v['content']  = preg_replace('/<br \/>/', PHP_EOL, $v['content']);
                 $v['add_ip']   = long2ip($v['add_ip']);
-                $v['add_time'] = time_format($v['add_time']);
+                $v['add_time'] = time_format($v['add_time'], 'Y-m-d H:i:s');
             }
         }
 
