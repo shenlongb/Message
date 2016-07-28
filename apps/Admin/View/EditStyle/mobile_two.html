@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <style type="text/css">
+    .piece{ margin:0 10px;}
+    .piece .title{ font-size:14px; font-weight:bold; color:#4cbeff; height:40px; line-height:40px; text-align:center;}
+    .input-group-i{
+        padding: 5px 0;
+        position: relative;
+        border-collapse: separate;
+    }
+    .input-group-i span{ display:block;; font-size:12px; color:#999; height:30px; line-height:30px;}
+    .input-group-i input[type=text],.input-group-i select{ width:100%; box-sizing: border-box; border:1px solid #e2e2e2; height:40px; line-height:40px;  -moz-border-radius:5px;  -webkit-border-radius:5px;  border-radius:5px; padding:0 10px;   }
+    .input-group-i input[type=submit]{ width:100%; box-sizing: border-box; border:1px solid #4cbeff; background:#4cbeff; height:40px; line-height:40px;  -moz-border-radius:5px;  -webkit-border-radius:5px;  border-radius:5px; padding:0 10px; color:#fff;}
+    .input-group-i select:focus,.input-group-i input[type=text]:focus{
+        border-color: #66afe9;
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    }
+
+</style>
+
+</head>
+<body>
+
+<div class="piece">
+    <iframe src="about:blank" style="display: none;" name="qiao-mess-iframe" id="qiao-mess-iframe"></iframe>
+    <form class="registerform" method="post" action="/postAdd.html/actions/TWO" id="dform" onSubmit="return check();">
+        <input name="title" value="ucc头条数据" type="hidden">
+        <input name="CompanyID" value="{$CompanyID}" type="hidden">
+        <input name="http_referer" value="{$Think.server.http_referer}" type="hidden">
+        <div class="title">《填写下面信息可免费领取资料 》</div>
+        <div class="input-group-i"><span >您的姓名</span><input type="text"  class="ll_text" name="name" id="name"></div>
+
+        <div class="input-group-i"><span>联系方式（请输入手机号码）</span><input type="text" name="tel" id="tel" class="ll_text"></div>
+
+        <div class="input-group-i">
+            <span>请选择项目</span>
+            <div class="selectMulti-wrapper">
+                <select class="form-control select-list1 showing" style="" name="ab1" id="ab1"  >
+                    <option value="" data-id="0">--请选择项目--</option>
+                    <option value="我想加盟干洗店" data-id="01">我想加盟干洗店</option>
+                    <option value="我想了解其它项目" data-id="02">我想了解其它项目</option>
+                    <option value="还没有考虑好,希望得到建议" data-id="03">还没有考虑好,希望得到建议</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="input-group-i">
+            <span>请选择您对UCC有没有过了解</span>
+            <div>
+                <select class="form-control select-list1 showing" style="" name="ab2"  id="ab2">
+                    <option value="" data-id="0">--请选择--</option>
+                    <option value="我对UCC国际洗衣有过了解" data-id="01">我对UCC国际洗衣有过了解</option>
+                    <option value="我对UCC国际洗衣没了解过" data-id="02">我对UCC国际洗衣没了解过</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="input-group-i">
+            <span>请选择您的了解渠道</span>
+            <select class="form-control select-list1 showing" style="" name="ab3" id='ab3'>
+                <option value="" data-id="0">--请选择--</option>
+                <option value="我是在互联网上了解到的" data-id="01">我是在互联网上了解到的</option>
+                <option value="我见过UCC实体门店" data-id="02">我见过UCC实体门店</option>
+            </select>
+        </div>
+
+
+        <div class="input-group-i">
+            <span>开店意向地址（请输入具体地址）</span>
+            <input  type="text"  class="ll_text"  name="adr">
+        </div>
+
+        <div class="input-group-i"><input type="submit" class="btn-i" value="在线领取资料"/></div>
+
+    </form>
+</div>
+
+</body>
+</html>
